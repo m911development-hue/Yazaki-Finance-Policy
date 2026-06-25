@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yazaki Finance Policy Assistant - Your Intelligent Finance Policy Assistant. Ask questions and get accurate, AI-powered answers from the policy document with voice chat support.">
+    <meta name="theme-color" content="#6366f1">
+    <title>Yazaki Finance Policy Assistant</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+
+    <!-- Scripts (deferred, in order) -->
+    <script src="/static/js/ui.js" defer></script>
+    <script src="/static/js/chat.js" defer></script>
+    <script src="/static/js/voice.js" defer></script>
+    <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         APP CONTAINER — CSS Grid: sidebar + main
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="app-container">
+
+        <!-- ───────────────────────────────────────────────────────────
+             LEFT SIDEBAR
+             ─────────────────────────────────────────────────────────── -->
+        <aside class="sidebar" id="sidebar">
+
+            <!-- Mobile close button -->
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Gradient Overlay -->
+            <div class="sidebar-overlay-gradient"></div>
+
+            <!-- Content overlayed at bottom -->
+            <div class="sidebar-content-bottom">
+                <h1 class="sidebar-title">Yazaki Finance Policy Assistant</h1>
+                
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Online</span>
+                </div>
+
+                <p class="sidebar-tagline">Your Intelligent Finance Policy Assistant</p>
+            </div>
+        </aside>
+
+        <!-- ───────────────────────────────────────────────────────────
+             RIGHT MAIN AREA
+             ─────────────────────────────────────────────────────────── -->
+        <main class="main-area">
+
+            <!-- Chat Header -->
+            <header class="chat-header">
+                <!-- Mobile hamburger -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open sidebar">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div class="header-content">
+                    <h2 class="header-title">Yazaki Finance Policy Assistant</h2>
+                    <p class="header-subtitle">Always ready to help you with information about the Yazaki Finance Policy.</p>
+                </div>
+
+                <!-- Clear Chat Button -->
+                <button class="btn-clear-chat" id="clearChatBtn" aria-label="Clear chat" title="Clear Conversation">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Chat Container -->
+            <div class="chat-container" id="chatContainer">
+
+                <!-- Welcome Message -->
+                <div id="welcomeMessage" class="welcome-container">
+                    <div class="welcome-icon">
+                        <img src="/static/assets/yazaki-avatar.png" alt="Yazaki Finance Policy Assistant Logo">
+                    </div>
+                    <h2 class="welcome-title">Welcome to Yazaki Finance Policy Assistant</h2>
+                    <p class="welcome-subtitle">Ask me anything about the Yazaki Finance Policy, reimbursement rules, travel guidelines, or other policy details.</p>
+                </div>
+
+                <!-- Messages Area -->
+                <div class="messages" id="messagesArea">
+                    <!-- Populated dynamically by JS -->
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typingIndicator">
+                    <img src="/static/assets/yazaki-avatar.png" alt="AI" class="typing-avatar">
+                    <span class="typing-text">Yazaki Finance Policy Assistant is thinking</span>
+                    <div class="typing-dots">
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <!-- Voice active/listening indicator overlay -->
+                <div class="voice-indicator-container" id="voiceIndicator">
+                    <div class="voice-indicator-glow"></div>
+                    <span class="voice-status-text">Listening...</span>
+                    <div class="voice-waveform">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <div class="voice-loading-spinner"></div>
+                    <button class="btn-stop-listening" id="stopListeningBtn" title="Stop listening">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                        </svg>
+                        <span>Stop Listening</span>
+                    </button>
+                </div>
+
+                <div class="input-wrapper">
+                    <!-- Voice Button (Mic on the left) -->
+                    <button class="btn-voice" id="voiceBtn" aria-label="Voice input" title="Voice input">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                        <!-- Recording pulse ring (visible only when recording) -->
+                        <span class="recording-ring"></span>
+                    </button>
+
+                    <textarea
+                        id="messageInput"
+                        placeholder="Ask me anything..."
+                        rows="1"
+                        aria-label="Type your message"
+                    ></textarea>
+
+                    <!-- Send Button (Send on the right) -->
+                    <button class="btn-send" id="sendBtn" aria-label="Send message" title="Send message">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="19" x2="12" y2="5"></line>
+                            <polyline points="5 12 12 5 19 12"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Audio Controls (hidden by default) -->
+                <div class="audio-controls hidden" id="audioControls">
+                    <!-- Stop Button -->
+                    <button class="audio-btn audio-stop-btn" id="audioStopBtn" aria-label="Stop audio" title="Stop">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="6" width="12" height="12" rx="1"></rect>
+                        </svg>
+                    </button>
+                    <!-- Audio Progress -->
+                    <div class="audio-progress">
+                        <div class="audio-progress-bar" id="audioProgressBar"></div>
+                    </div>
+                    <!-- Replay Button -->
+                    <button class="audio-btn audio-replay-btn" id="audioReplayBtn" aria-label="Replay audio" title="Replay">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <p class="input-footer">Yazaki Finance Policy Assistant responds based on official policy documentation only.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         TOAST CONTAINER — Fixed position notifications
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SIDEBAR OVERLAY — Mobile backdrop
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+</body>
+</html>

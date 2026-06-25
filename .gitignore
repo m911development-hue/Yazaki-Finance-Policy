@@ -1,0 +1,22 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Environment Variables
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local Data and Vector DB
+data/
+backend/knowledge/Kaizen.pdf
+backend/knowledge/Kaizen.pdf.meta.json
+
+# OS files
+.DS_Store
+Thumbs.db

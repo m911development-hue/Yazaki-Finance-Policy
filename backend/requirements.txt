@@ -1,0 +1,35 @@
+# =============================================================================
+# Yazaki Finance Policy Assistant - Python Dependencies
+# =============================================================================
+
+# Web Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+
+# Configuration
+python-dotenv>=1.0.0
+pydantic-settings>=2.0.0
+
+# File handling
+python-multipart>=0.0.9
+aiofiles>=24.1.0
+jinja2>=3.1.0
+
+# LangChain & AI
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langchain-community>=0.3.0
+langchain-text-splitters>=0.3.0
+langchain-chroma>=0.2.0
+
+# OpenAI
+openai>=1.40.0
+
+# Edge TTS
+edge-tts>=0.43.3
+
+# Vector Database
+chromadb>=0.5.0
+
+# PDF Processing
+pdfplumber>=0.11.0
