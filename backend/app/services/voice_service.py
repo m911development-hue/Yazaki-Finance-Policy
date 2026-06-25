@@ -93,15 +93,23 @@ class VoiceService:
             raise HTTPException(status_code=400, detail="Text for synthesis cannot be empty.")
 
         try:
-            # The user requested to increase the voice speed by 0.2 (20%)
-            communicate = edge_tts.Communicate(text, self.tts_voice, rate="+20%")
+            # Clean markdown formatting so TTS does not read symbols literally (e.g., asterisks as "ascourage/asterisk")
+            import re
+            clean_text = re.sub(r'[*#`_~]', '', text)
+            # Remove bullet point symbols at the start of lines
+            clean_text = re.sub(r'^\s*[-*+•]\s+', '', clean_text, flags=re.MULTILINE)
+            # Normalize spacing
+            clean_text = re.sub(r'\s+', ' ', clean_text).strip()
+
+            # Set speech rate to +10% for improved clarity and natural flow
+            communicate = edge_tts.Communicate(clean_text, self.tts_voice, rate="+10%")
             
             audio_data = bytearray()
             async for chunk in communicate.stream():
                 if chunk["type"] == "audio":
                     audio_data.extend(chunk["data"])
                     
-            logger.info("Synthesized %d chars → %d bytes of audio via Edge TTS", len(text), len(audio_data))
+            logger.info("Synthesized %d chars (cleaned: %d) → %d bytes of audio via Edge TTS", len(text), len(clean_text), len(audio_data))
             return bytes(audio_data)
 
         except Exception as exc:
