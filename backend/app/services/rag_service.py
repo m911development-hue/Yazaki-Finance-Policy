@@ -124,7 +124,7 @@ class RAGService:
             openai_api_base=settings.OPENAI_API_BASE,
             temperature=0.3,        # Low temperature for factual answers
             streaming=True,         # Enable streaming by default
-            max_tokens=1024,        # Limit max tokens to prevent credit limit errors on OpenRouter
+            max_tokens=512,         # Limit max tokens to prevent credit limit errors on OpenRouter
         )
 
         # --- Prompt template (system + history + user) ---
